@@ -25,8 +25,5 @@ _Wei (Waley) Zhang (PennKey: wzha)_
 - __View from the side__
 ![](img/milestone-1-2.PNG)
 
-- __9 iterations__
-![](img/9_iter.PNG)
-
 ## Citations
 The Wall-E model was downloaded from [here](https://free3d.com/3d-model/walle-rigged-78282.html). The Eve model was downloaded from [here](https://free3d.com/3d-model/eve-53097.html).
