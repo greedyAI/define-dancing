@@ -12,10 +12,9 @@ out vec4 out_Col;
 
 void main()
 {
-  // vec2 uv = 0.5 * (fs_UV + vec2(1.0));
-  // vec4 textureCol = texture(u_Tex1, uv);
-
-  vec4 diffuseColor = fs_Col;
+  vec2 uv = fs_UV;
+  vec4 textureCol = texture(u_Tex1, uv);
+  vec4 diffuseColor = textureCol;
 
   // vec3 normal = texture(u_Tex2, fs_UV).rgb;
   // normal = normalize(normal * 2.0 - 1.0);

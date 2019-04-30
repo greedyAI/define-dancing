@@ -43,6 +43,7 @@ class ShaderProgram {
   unifSampler1: WebGLUniformLocation;
   unifSampler2: WebGLUniformLocation;
   unifSampler3: WebGLUniformLocation;
+  unifVisibility: WebGLUniformLocation;
 
   constructor(shaders: Array<Shader>) {
     this.prog = gl.createProgram();
@@ -70,9 +71,11 @@ class ShaderProgram {
     this.unifEye   = gl.getUniformLocation(this.prog, "u_Eye");
     this.unifRef   = gl.getUniformLocation(this.prog, "u_Ref");
     this.unifUp   = gl.getUniformLocation(this.prog, "u_Up");
+    this.unifDimensions  = gl.getUniformLocation(this.prog, "u_Dimensions");
     this.unifSampler1   = gl.getUniformLocation(this.prog, "u_Tex1");
     this.unifSampler2   = gl.getUniformLocation(this.prog, "u_Tex2");
     this.unifSampler3   = gl.getUniformLocation(this.prog, "u_Tex3");
+    this.unifVisibility  = gl.getUniformLocation(this.prog, "u_Visibility");
   }
 
   use() {
@@ -142,6 +145,13 @@ class ShaderProgram {
     this.use();
     if (this.unifTime !== -1) {
       gl.uniform1f(this.unifTime, t);
+    }
+  }
+
+  setVisibility(v: number) {
+    this.use();
+    if (this.unifVisibility !== -1) {
+      gl.uniform1f(this.unifVisibility, v);
     }
   }
 

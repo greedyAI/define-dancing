@@ -51,6 +51,16 @@ class Mesh extends Drawable {
     this.positions = new Float32Array(posTemp);
     this.uvs = new Float32Array(uvsTemp);
 
+    for (var i = 0; i < this.positions.length; i++) {
+      if (i % 4 == 0) {
+        this.positions[i] += this.center[0];
+      } else if (i % 4 == 1) {
+        this.positions[i] += this.center[1];
+      } else if (i % 4 == 2) {
+        this.positions[i] += this.center[2];
+      }
+    }
+
     this.generateIdx();
     this.generatePos();
     this.generateNor();

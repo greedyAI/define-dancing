@@ -22,7 +22,7 @@ out vec4 fs_Nor;
 out vec4 fs_Col;
 out vec4 fs_LightVec;
 
-const vec4 lightPos = vec4(100, 100, -100, 1);
+const vec4 lightPos = vec4(-8000000, -10000000, 0, 1);
 
 mat4 translationMatrix(vec4 t) {
   return mat4(
