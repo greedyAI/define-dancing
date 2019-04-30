@@ -134,7 +134,7 @@ function loadScene() {
   particles.createEveParticles(25, 0.1, 1, 1);
   particles.createInstanceArrays();
 
-  feParticle = new Cube(vec3.fromValues(0, 0, 0));
+  feParticle = new Cube(vec3.fromValues(-3.1, 2, 3.85));
   feParticle.create();
   feParticle.setInstanceVBOs(new Float32Array(particles.feTranslate), new Float32Array(particles.feRotate), new Float32Array(particles.feScale), new Float32Array(particles.feColor));
   feParticle.setNumInstances(particles.feCount);
@@ -147,17 +147,17 @@ function loadScene() {
   eveParticleTex = new Texture('./textures/eve-exhaust.png', 0);
 
   let walleString: string = readTextFile('./obj/walle-body.obj')
-  walle = new Mesh(walleString, vec3.fromValues(3.1,-2,-3.85));
+  walle = new Mesh(walleString, vec3.fromValues(0,0,0));
   walle.create();
   walleTex = new Texture('./textures/wall-e_diffuse.png', 0);
   // walleNor = new Texture('./textures/wall-e_normal_map.tga.png', 0);
 
   let walleHeadString: string = readTextFile('./obj/walle-head.obj')
-  walleHead = new Mesh(walleHeadString, vec3.fromValues(3.1,-2,-3.85));
+  walleHead = new Mesh(walleHeadString, vec3.fromValues(0,0,0));
   walleHead.create();
 
   let fireExtinguisherString: string = readTextFile('./obj/fire-extinguisher.obj')
-  fireExtinguisher = new Mesh(fireExtinguisherString, vec3.fromValues(3.9,3,0.15));
+  fireExtinguisher = new Mesh(fireExtinguisherString, vec3.fromValues(0.5,5,4));
   fireExtinguisher.create();
   fireExtinguisherTex = new Texture('./textures/fire-extinguisher.png', 0);
 
@@ -255,7 +255,11 @@ function loadScene() {
   walle.setNumInstances(walleCount);
 
   walleHeadTranslate.push(startPos[0], startPos[1], startPos[2], 0);
-  walleHeadRotate.push(quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
+  let rotate: quat = quat.fromValues(0,0,0,1);
+  quat.rotateY(rotate, rotate, glMatrix.toRadian(0));
+  quat.normalize(rotate, rotate);
+  quat.multiply(rotate, quaternion, rotate);
+  walleHeadRotate.push(rotate[0], rotate[1], rotate[2], rotate[3]);
   walleHeadScale.push(1, 1, 1, 1);
   walleHeadColor.push(1, 1, 1, 1);
   walleHeadCount = 1
@@ -399,7 +403,7 @@ function main() {
     bigStarCoronaShader.setTime(newTime - startTime);
     bigStarGlowShader.setTime(newTime - startTime);
 
-    particles.updateFEParticles((newTime - prevTime) * feSimulationSpeed / 1000);
+    particles.updateFEParticles((newTime - prevTime) * feSimulationSpeed / 10000);
     particles.updateEveParticles((newTime - prevTime) * feSimulationSpeed / 1000);
     prevTime = newTime;
     particles.createInstanceArrays();
@@ -445,7 +449,11 @@ function main() {
     walleHeadScale = [];
     walleHeadColor = [];
     walleHeadTranslate.push(wallePos[0], wallePos[1], wallePos[2], 0);
-    walleHeadRotate.push(quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
+    let rotate: quat = quat.fromValues(0,0,0,1);
+    quat.rotateY(rotate, rotate, glMatrix.toRadian(newTime - startTime) / 10);
+    quat.normalize(rotate, rotate);
+    quat.multiply(rotate, quaternion, rotate);
+    walleHeadRotate.push(rotate[0], rotate[1], rotate[2], rotate[3]);
     walleHeadScale.push(1, 1, 1, 1);
     walleHeadColor.push(0.5, 0.25, 0, 1);
     walleHeadCount = 1
