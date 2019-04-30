@@ -34,6 +34,13 @@ let walleScale: number[] = [];
 let walleColor: number[] = [];
 let walleCount: number = 0;
 
+let walleHead: Mesh;
+let walleHeadTranslate: number[] = [];
+let walleHeadRotate: number[] = [];
+let walleHeadScale: number[] = [];
+let walleHeadColor: number[] = [];
+let walleHeadCount: number = 0;
+
 let eve: Mesh;
 let eveTex: Texture;
 let eveTranslate: number[] = [];
@@ -139,11 +146,15 @@ function loadScene() {
   eveParticle.setNumInstances(particles.eveCount);
   eveParticleTex = new Texture('./textures/eve-exhaust.png', 0);
 
-  let walleString: string = readTextFile('./obj/walle.obj')
+  let walleString: string = readTextFile('./obj/walle-body.obj')
   walle = new Mesh(walleString, vec3.fromValues(3.1,-2,-3.85));
   walle.create();
   walleTex = new Texture('./textures/wall-e_diffuse.png', 0);
   // walleNor = new Texture('./textures/wall-e_normal_map.tga.png', 0);
+
+  let walleHeadString: string = readTextFile('./obj/walle-head.obj')
+  walleHead = new Mesh(walleHeadString, vec3.fromValues(3.1,-2,-3.85));
+  walleHead.create();
 
   let fireExtinguisherString: string = readTextFile('./obj/fire-extinguisher.obj')
   fireExtinguisher = new Mesh(fireExtinguisherString, vec3.fromValues(3.9,3,0.15));
@@ -242,6 +253,14 @@ function loadScene() {
   walleCount = 1
   walle.setInstanceVBOs(new Float32Array(walleTranslate), new Float32Array(walleRotate), new Float32Array(walleScale), new Float32Array(walleColor));
   walle.setNumInstances(walleCount);
+
+  walleHeadTranslate.push(startPos[0], startPos[1], startPos[2], 0);
+  walleHeadRotate.push(quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
+  walleHeadScale.push(1, 1, 1, 1);
+  walleHeadColor.push(1, 1, 1, 1);
+  walleHeadCount = 1
+  walleHead.setInstanceVBOs(new Float32Array(walleHeadTranslate), new Float32Array(walleHeadRotate), new Float32Array(walleHeadScale), new Float32Array(walleHeadColor));
+  walleHead.setNumInstances(walleHeadCount);
 
   fireExtinguisherTranslate.push(startPos[0], startPos[1], startPos[2], 0);
   fireExtinguisherRotate.push(quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
@@ -421,6 +440,18 @@ function main() {
     walle.setInstanceVBOs(new Float32Array(walleTranslate), new Float32Array(walleRotate), new Float32Array(walleScale), new Float32Array(walleColor));
     walle.setNumInstances(walleCount);
 
+    walleHeadTranslate = [];
+    walleHeadRotate = [];
+    walleHeadScale = [];
+    walleHeadColor = [];
+    walleHeadTranslate.push(wallePos[0], wallePos[1], wallePos[2], 0);
+    walleHeadRotate.push(quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
+    walleHeadScale.push(1, 1, 1, 1);
+    walleHeadColor.push(0.5, 0.25, 0, 1);
+    walleHeadCount = 1
+    walleHead.setInstanceVBOs(new Float32Array(walleHeadTranslate), new Float32Array(walleHeadRotate), new Float32Array(walleHeadScale), new Float32Array(walleHeadColor));
+    walleHead.setNumInstances(walleHeadCount);
+
     fireExtinguisherTranslate = [];
     fireExtinguisherRotate = [];
     fireExtinguisherScale = [];
@@ -507,7 +538,8 @@ function main() {
       axiom
     ]);
     renderer.render(camera, walleShader, [
-      walle
+      walle,
+      walleHead
     ]);
     renderer.render(camera, feShader, [
       fireExtinguisher

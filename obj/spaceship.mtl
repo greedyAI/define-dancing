@@ -1,8 +1,0 @@
-newmtl spaceship1:Munificent
-illum 4
-Kd 0.80 0.80 0.80
-Ka 1.00 1.00 1.00
-Tf 1.00 1.00 1.00
-Ni 1.45
-Ks 2.00 2.00 2.00
-Ns 180.00

@@ -6,24 +6,17 @@ _Wei (Waley) Zhang (PennKey: wzha)_
 [github.io Demo](https://greedyai.github.io/define-dancing/)
 
 ## Features
-- My scene consists of the following elements so far:
+- My scene consists of the following elements:
   - __Solid particle system__: To simulate Wall-E's fire extinguisher exhaust particles, I created a solid particle system that properly implements particle pooling.
-  - __Wall-E & Eve__: Using downloaded meshes from the Internet, I rendered lambertian shaded models for these two main characters of my scene. I also downloaded some textures and began the process of incorporating them in my fragment shaders.
-  - __Particle physics__: The solid particles' emission rate directly affects Wall-E's velocity in a realistic "propulsion-like" manner: the more particles he emits per frame, the faster he moves during that frame.
-- Future work:
-  - __Texturing__: Currently, my Wall-E and Eve models don't have associated textures that map properly, so I may end up manually texturing them using noise functions (without using a texture file). My Wall-E model also has the issue that some of its polygons are self-intersecting, which causes visual artefacts that mess with the rendering quality. I may end up fully rendering Wall-E using SDFs in the final product instead.
-  - __Background__: The background will consist of stars and galaxies rendered using plasma particle effects.
-  - __Eve's exhaust__: Eve's rocket exhaust needs to be modeled.
-- Extra features I may implement based on available time:
-  - __Spaceship Axiom__: Wall-E and Eve are "dancing" around the spaceship Axiom in the actual movie, so I may add this to improve my scene's authenticity.
-  - __Dancing pathing__: Currently, the "dance path" that Wall-E and Eve travels on is a continously repeating trigonometric parametric function. I may manually change parts of this path to reflect their motions in the movie to improve my scene's authenticity.
+  - __Gaseous particle system__: The simulate Eve's jet propulsion exhaust, I created a gaseous particle sytem that samples from a texture to determine its color at any point in time.
+  - __Particle physics__: The solid particles' emission rate directly affects Wall-E's velocity in a realistic "propulsion-like" manner: the more particles he emits per frame, the faster he moves during that frame. The gaseous particle systems' size attributes are also influenced by Eve's speed.
+  - __Wall-E, Eve, & Spaceship Axiom__: Using downloaded meshes from the Internet, I rendered lambertian shaded models for these three main objects of my scene. I edited the original models via Maya to improve model integrity (ie. to eliminate self-intersecting polygons and other visual artefacts...etc.). I also downloaded appropriate textures and mapped them to these models for my rendering. Furthermore, for the spaceship Axiom, I also procedurally textured it using Worley noise. Finally, Wall-E also has a fire extinguisher, the model and textures of which I downloaded from the Internet.
+  - __Stars__: There is a main "Sun" in the scene, rendered using a combination of techniques including texture mapping of colors, lens flare/glow, procedural flame-like effects (ie. corona), and occlusion querying. There are also other, more distant stars, but still rendered in a physically-realistic manner (ie. properly calculating blackbody radiation...etc.). The star locations are determined based on various noise functions. Overall, the distribution of stars appear realistic, akin to constellations.
+  - __"Define Dancing"__: Wall-E and Eve travels continously on a repeating trigonometric parametric function, but are offset from each other in such a way that it looks harmonious.
 
 ## Screenshots
-- __View from the bottom__
-![](img/milestone-1-1.PNG)
-
-- __View from the side__
-![](img/milestone-1-2.PNG)
+![](img/final-1.PNG)
+![](img/final-2.PNG)
 
 ## Citations
-The Wall-E model was downloaded from [here](https://free3d.com/3d-model/walle-rigged-78282.html). The Eve model was downloaded from [here](https://free3d.com/3d-model/eve-53097.html).
+Models and textures have been cited in the relevant files in this repository. See the ./obj directory for such citations.
